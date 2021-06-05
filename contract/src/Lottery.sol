@@ -8,14 +8,19 @@ contract Lottery {
     constructor() {
         manager = msg.sender;
     }
-    
-    function enterContest() public payable validParticipant {
-        participants.push(payable(msg.sender));
+
+    function getManager() public view returns (address) {
+        return manager;
     }
     
     function getParticipants() public view returns (address payable[] memory) {
         return participants;
     }
+
+    function enterContest() public payable validParticipant {
+        participants.push(payable(msg.sender));
+    }
+    
     
     function pickWinner() public admin {
         uint randomIndex = random() % participants.length;
