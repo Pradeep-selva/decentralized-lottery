@@ -9,7 +9,7 @@ contract Lottery {
         manager = msg.sender;
     }
     
-    function enterContest() public payable {
+    function enterContest() public payable validParticipant {
         participants.push(payable(msg.sender));
     }
     
@@ -17,7 +17,7 @@ contract Lottery {
         return participants;
     }
     
-    function pickWinner() public {
+    function pickWinner() public admin {
         uint randomIndex = random() % participants.length;
         
         participants[randomIndex].transfer(address(this).balance);
@@ -26,5 +26,24 @@ contract Lottery {
     
     function random() private view returns (uint) {
         return uint(keccak256(abi.encodePacked(block.difficulty, block.number, participants)));
+    }
+    
+    function isNewParticipant(address sender) private view returns (bool) {
+            for(uint i = 0; i < participants.length; i++){
+                if(sender == participants[i]) return false;
+            }
+            
+            return true;
+    }
+    
+    modifier validParticipant() {
+        require(msg.value > 0.001 ether, "You  must send a minimum of 0.001 ether to join.");
+        require(isNewParticipant(msg.sender), "You are already a participant!");
+        _;
+    }
+    
+    modifier admin() {
+        require(msg.sender == manager, "This is an admin function!");
+        _;
     }
 }
