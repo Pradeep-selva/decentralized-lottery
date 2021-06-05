@@ -5,6 +5,9 @@
   "repository": "https://github.com/Pradeep-selva/distributed-lottery",
   "author": "pradeep-selva",
   "license": "MIT",
+  "scripts": {
+    "test": "mocha"
+  },
   "dependencies": {
     "@truffle/hdwallet-provider": "^1.4.0",
     "ganache-cli": "^6.12.2",
