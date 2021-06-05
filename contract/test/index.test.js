@@ -5,8 +5,10 @@ const assert = require("assert"),
 const {
   failedReEntry,
   successfulEntry,
-  failedInsufficient
-} = require("./entering");
+  failedInsufficient,
+  successfullyPicked,
+  failedDueToPerms
+} = require("./index");
 
 const { eth, utils } = new Web3(ganache.provider());
 
@@ -41,4 +43,8 @@ describe("Lottery Tests", () => {
 
   it("Entering contest with insufficient ether", () =>
     failedInsufficient(params));
+
+  it("Picking winner", () => successfullyPicked(params));
+
+  it("Non-admin picking winner", () => failedDueToPerms(params));
 });
