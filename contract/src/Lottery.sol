@@ -22,7 +22,7 @@ contract Lottery {
     }
     
     
-    function pickWinner() public admin {
+    function pickWinner() public validPerms {
         uint randomIndex = random() % participants.length;
         
         participants[randomIndex].transfer(address(this).balance);
@@ -47,8 +47,9 @@ contract Lottery {
         _;
     }
     
-    modifier admin() {
+    modifier validPerms() {
         require(msg.sender == manager, "This is an admin function!");
+        require(participants.length > 0, "Cant pick winners without players entering.");
         _;
     }
 }

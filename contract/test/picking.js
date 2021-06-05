@@ -17,9 +17,24 @@ const successfullyPicked = async ({ accounts, lottery, utils }) => {
   }
 };
 
-const failedDueToPerms = async ({ accounts, lottery }) => {
+const failedDueToPerms = async ({ accounts, lottery, utils }) => {
   try {
+    await lottery.methods
+      ?.enterContest()
+      ?.send({ from: accounts[1], value: utils.toWei("0.1", "ether") });
+
     await lottery.methods?.pickWinner()?.send({ from: accounts[1] });
+    assert(false);
+  } catch (err) {
+    assert(err);
+  }
+};
+
+const failedDueToNoParticipants = async ({ lottery }) => {
+  try {
+    const manager = await lottery.methods?.getManager()?.call();
+    await lottery.methods?.pickWinner()?.send({ from: manager });
+
     assert(false);
   } catch (err) {
     assert(err);
@@ -28,5 +43,6 @@ const failedDueToPerms = async ({ accounts, lottery }) => {
 
 module.exports = {
   successfullyPicked,
-  failedDueToPerms
+  failedDueToPerms,
+  failedDueToNoParticipants
 };

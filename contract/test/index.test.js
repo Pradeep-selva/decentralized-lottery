@@ -7,7 +7,8 @@ const {
   successfulEntry,
   failedInsufficient,
   successfullyPicked,
-  failedDueToPerms
+  failedDueToPerms,
+  failedDueToNoParticipants
 } = require("./index");
 
 const { eth, utils } = new Web3(ganache.provider());
@@ -47,4 +48,7 @@ describe("Lottery Tests", () => {
   it("Picking winner", () => successfullyPicked(params));
 
   it("Non-admin picking winner", () => failedDueToPerms(params));
+
+  it("Picking winner without participants", () =>
+    failedDueToNoParticipants(params));
 });
