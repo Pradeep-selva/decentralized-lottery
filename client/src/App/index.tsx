@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 import { Lottery, web3 } from "../Utils";
-import { Actions } from "../Components";
+import { EnterContest } from "../Components";
 
 interface IState {
   manager: string;
@@ -21,12 +21,18 @@ class App extends React.Component<any, IState> {
   }
 
   async componentDidMount() {
+    const manager = await Lottery.methods?.getManager()?.call();
+    this.setState({ manager });
+
+    this.fetchInfo();
+  }
+
+  fetchInfo = async () => {
     const participants = await Lottery.methods?.getParticipants()?.call();
     const balance = await web3.eth.getBalance(Lottery.options.address);
-    const manager = await Lottery.methods?.getManager()?.call();
 
-    this.setState({ manager, participants, balance });
-  }
+    this.setState({ participants, balance });
+  };
 
   render() {
     const { manager, participants, balance } = this.state;
@@ -39,11 +45,11 @@ class App extends React.Component<any, IState> {
               <h5>
                 This contract is managed by {manager}. <br /> There are
                 currently {participants.length} participants competing for a
-                prize pool of {balance} ether.
+                prize pool of {web3.utils.fromWei(balance)} ether.
               </h5>
             </div>
           )}
-          <Actions />
+          <EnterContest refetch={this.fetchInfo} />
         </header>
       </div>
     );

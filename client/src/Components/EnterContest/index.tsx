@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./index.css";
 import { Lottery, web3 } from "../../Utils";
+import { IProps } from "../types";
 
-const Actions = () => {
+const EnterContest = ({ refetch }: IProps) => {
   const [ether, setEther] = useState("0");
   const [message, setMessage] = useState("");
 
@@ -17,6 +18,8 @@ const Actions = () => {
         ?.send({ from: accounts[0], value: web3.utils.toWei(ether, "ether") });
 
       setMessage("Joined successfully!");
+
+      refetch();
     } catch (err) {
       console.log(err);
       setMessage("Could not join successfully.");
@@ -49,4 +52,4 @@ const Actions = () => {
   );
 };
 
-export default Actions;
+export default EnterContest;

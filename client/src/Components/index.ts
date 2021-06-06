@@ -1,1 +1,1 @@
-export { default as Actions } from "./Actions";
+export { default as EnterContest } from "./EnterContest";
