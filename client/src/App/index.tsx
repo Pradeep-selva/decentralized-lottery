@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.css";
 import { Lottery, web3 } from "../Utils";
+import { Actions } from "../Components";
 
 interface IState {
   manager: string;
@@ -34,12 +35,15 @@ class App extends React.Component<any, IState> {
         <header className='App-header'>
           <h1>Lottery</h1>
           {!!manager && (
-            <h6>
-              This contract is managed by {manager}. <br /> There are currently{" "}
-              {participants.length} participants competing for a prize pool of{" "}
-              {balance} ether.
-            </h6>
+            <div className={"info"}>
+              <h5>
+                This contract is managed by {manager}. <br /> There are
+                currently {participants.length} participants competing for a
+                prize pool of {balance} ether.
+              </h5>
+            </div>
           )}
+          <Actions />
         </header>
       </div>
     );

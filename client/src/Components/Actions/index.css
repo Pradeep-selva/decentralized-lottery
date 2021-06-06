@@ -1,0 +1,14 @@
+.form-control {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  padding: 1rem;
+  border-radius: 50px;
+}
+
+.submit {
+  padding: 0.5rem;
+  margin-top: 10px;
+}
