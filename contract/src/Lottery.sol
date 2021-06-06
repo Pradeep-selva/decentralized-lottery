@@ -42,7 +42,7 @@ contract Lottery {
     }
     
     modifier validParticipant() {
-        require(msg.value > 0.001 ether, "You  must send a minimum of 0.001 ether to join.");
+        require(msg.value >= 0.001 ether, "You  must send a minimum of 0.001 ether to join.");
         require(isNewParticipant(msg.sender), "You are already a participant!");
         _;
     }
