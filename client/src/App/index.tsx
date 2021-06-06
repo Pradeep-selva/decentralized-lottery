@@ -50,6 +50,7 @@ class App extends React.Component<any, IState> {
         <div className='App'>
           <header className='App-header'>
             <h1>Lottery</h1>
+            <PickWinner />
             {!!manager && (
               <div className={"info"}>
                 <h5>
@@ -60,7 +61,6 @@ class App extends React.Component<any, IState> {
               </div>
             )}
             <EnterContest />
-            <PickWinner />
           </header>
         </div>
       </InfoContext.Provider>

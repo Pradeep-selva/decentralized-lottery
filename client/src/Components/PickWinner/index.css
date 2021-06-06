@@ -1,0 +1,8 @@
+.join-button {
+  padding: 1rem;
+  border: white solid 5px;
+  background-color: transparent;
+  color: whitesmoke;
+  margin-top: 1rem;
+  cursor: pointer;
+}
