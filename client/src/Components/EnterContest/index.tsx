@@ -20,6 +20,7 @@ const EnterContest = () => {
         ?.enterContest()
         ?.send({ from: accounts[0], value: web3.utils.toWei(ether, "ether") });
 
+      setEther("0");
       setMessage("Joined successfully!");
 
       refetch?.();

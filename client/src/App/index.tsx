@@ -1,7 +1,7 @@
 import React from "react";
 import InfoContext from "./context";
 import { Lottery, web3 } from "../Utils";
-import { EnterContest } from "../Components";
+import { EnterContest, PickWinner } from "../Components";
 import "./index.css";
 
 interface IState {
@@ -60,6 +60,7 @@ class App extends React.Component<any, IState> {
               </div>
             )}
             <EnterContest />
+            <PickWinner />
           </header>
         </div>
       </InfoContext.Provider>

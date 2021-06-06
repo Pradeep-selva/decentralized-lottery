@@ -1,17 +1,37 @@
-import React from "react";
-import "./index.css";
-// import { Lottery, web3 } from "../../Utils";
+import React, { useState } from "react";
+import InfoContext from "../../App/context";
+// import "./index.css";
+import { Lottery } from "../../Utils";
 
 const EnterContest = () => {
-  const handleClick = async () => {
+  const handleClick = async (
+    user: string | undefined,
+    refetch: Function | undefined
+  ) => {
     try {
-      //   const accounts = await web3.eth.getAccounts();
+      await Lottery.methods?.pickWinner()?.send({ from: user });
+      refetch?.();
     } catch (err) {
       console.log(err);
     }
   };
 
-  return <button onClick={handleClick}>Pick Winner</button>;
+  return (
+    <InfoContext.Consumer>
+      {(context) =>
+        context?.curUser === context?.manager ? (
+          <button
+            style={{ marginTop: "1rem" }}
+            onClick={() => handleClick(context?.curUser, context?.refetch)}
+          >
+            Pick Winner
+          </button>
+        ) : (
+          <></>
+        )
+      }
+    </InfoContext.Consumer>
+  );
 };
 
 export default EnterContest;
