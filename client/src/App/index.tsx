@@ -1,12 +1,14 @@
 import React from "react";
-import "./index.css";
+import InfoContext from "./context";
 import { Lottery, web3 } from "../Utils";
 import { EnterContest } from "../Components";
+import "./index.css";
 
 interface IState {
   manager: string;
   participants: Array<string>;
   balance: string;
+  curUser: string;
 }
 
 class App extends React.Component<any, IState> {
@@ -16,14 +18,19 @@ class App extends React.Component<any, IState> {
     this.state = {
       manager: "",
       participants: [],
-      balance: ""
+      balance: "",
+      curUser: ""
     };
   }
 
   async componentDidMount() {
     const manager = await Lottery.methods?.getManager()?.call();
-    this.setState({ manager });
+    const accounts = await web3.eth.getAccounts();
 
+    this.setState({
+      manager,
+      curUser: accounts[0]
+    });
     this.fetchInfo();
   }
 
@@ -35,23 +42,27 @@ class App extends React.Component<any, IState> {
   };
 
   render() {
-    const { manager, participants, balance } = this.state;
+    const { manager, participants, balance, curUser } = this.state;
     return (
-      <div className='App'>
-        <header className='App-header'>
-          <h1>Lottery</h1>
-          {!!manager && (
-            <div className={"info"}>
-              <h5>
-                This contract is managed by {manager}. <br /> There are
-                currently {participants.length} participants competing for a
-                prize pool of {web3.utils.fromWei(balance)} ether.
-              </h5>
-            </div>
-          )}
-          <EnterContest refetch={this.fetchInfo} />
-        </header>
-      </div>
+      <InfoContext.Provider
+        value={{ refetch: this.fetchInfo, manager, curUser }}
+      >
+        <div className='App'>
+          <header className='App-header'>
+            <h1>Lottery</h1>
+            {!!manager && (
+              <div className={"info"}>
+                <h5>
+                  This contract is managed by {manager}. <br /> There are
+                  currently {participants.length} participants competing for a
+                  prize pool of {web3.utils.fromWei(balance)} ether.
+                </h5>
+              </div>
+            )}
+            <EnterContest />
+          </header>
+        </div>
+      </InfoContext.Provider>
     );
   }
 }
