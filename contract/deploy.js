@@ -16,7 +16,7 @@ const { eth } = new Web3(provider);
   const accounts = await eth.getAccounts();
   console.log("\nAttempting to deploy from -", accounts[0]);
 
-  console.log("ABI -", abi);
+  console.log("ABI -", JSON.stringify(abi));
 
   const {
     options: { address }
