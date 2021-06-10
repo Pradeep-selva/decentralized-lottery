@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import InfoContext from "../../App/context";
 import "./index.css";
 import { Lottery } from "../../Utils";
 
 const EnterContest = () => {
+  const context = useContext(InfoContext);
   const [message, setMessage] = useState("");
 
   const handleClick = async (
@@ -24,24 +25,18 @@ const EnterContest = () => {
     }
   };
 
-  return (
-    <InfoContext.Consumer>
-      {(context) =>
-        context?.curUser === context?.manager ? (
-          <React.Fragment>
-            <button
-              className={"join-button"}
-              onClick={() => handleClick(context?.curUser, context?.refetch)}
-            >
-              <b>Pick Winner</b>
-            </button>
-            <h5>{message}</h5>
-          </React.Fragment>
-        ) : (
-          <></>
-        )
-      }
-    </InfoContext.Consumer>
+  return context?.curUser === context?.manager ? (
+    <React.Fragment>
+      <button
+        className={"join-button"}
+        onClick={() => handleClick(context?.curUser, context?.refetch)}
+      >
+        <b>Pick Winner</b>
+      </button>
+      <h5>{message}</h5>
+    </React.Fragment>
+  ) : (
+    <></>
   );
 };
 

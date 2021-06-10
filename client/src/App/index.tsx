@@ -43,6 +43,7 @@ class App extends React.Component<any, IState> {
 
   render() {
     const { manager, participants, balance = "", curUser = "" } = this.state;
+
     return (
       <InfoContext.Provider
         value={{ refetch: this.fetchInfo, manager, curUser }}
@@ -74,7 +75,7 @@ class App extends React.Component<any, IState> {
                 >
                   install metamask
                 </a>{" "}
-                to use this website:
+                to use this website
               </h1>
             )}
           </header>
