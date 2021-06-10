@@ -10,6 +10,7 @@
 # Built using
 
 - React
+- Typescript
 - Solidity
 - Web3
 - Ethereum
