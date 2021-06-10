@@ -2,7 +2,7 @@
   "name": "contract",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/Pradeep-selva/distributed-lottery",
+  "repository": "https://github.com/Pradeep-selva/decentralized-lottery",
   "author": "pradeep-selva",
   "license": "MIT",
   "scripts": {
