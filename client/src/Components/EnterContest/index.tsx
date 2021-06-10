@@ -15,10 +15,11 @@ const EnterContest = () => {
     setMessage("Waiting for transaction confirmation...");
 
     try {
-      const accounts = await web3.eth.getAccounts();
-      await Lottery.methods
-        ?.enterContest()
-        ?.send({ from: accounts[0], value: web3.utils.toWei(ether, "ether") });
+      const accounts = await web3?.eth.getAccounts();
+      await Lottery.methods?.enterContest()?.send({
+        from: accounts?.[0] || "",
+        value: web3?.utils.toWei(ether, "ether") || ""
+      });
 
       setEther("0");
       setMessage("Joined successfully!");

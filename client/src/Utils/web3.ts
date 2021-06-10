@@ -1,6 +1,6 @@
 import Web3 from "web3";
 
-let web3: Web3;
+let web3: Web3 | undefined;
 
 const Window = window as Window &
   typeof globalThis & { ethereum: any; web3: Web3 };
@@ -22,7 +22,7 @@ if (typeof Window.ethereum !== "undefined") {
     .catch(() =>
       alert("This application requires user approval to function correctly!")
     );
-} else {
+} else if (Window.web3?.currentProvider) {
   web3 = new Web3(Window.web3.currentProvider);
 }
 
